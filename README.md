@@ -19,7 +19,7 @@ This project develops an FPGA-enabled real-time water surge monitoring and forec
 | `optimization_gofloat16_builtin.py`            | Converts the trained H5 model into a lightweight TensorFlow Lite model using graph optimization and Float16 weight conversion.   |
 | `best_water_surge_lstm_float16_builtin.tflite` | Optimized lightweight TensorFlow Lite LSTM model for embedded deployment.                                                        |
 | `test_size_accuracy_tflite.py`                 | Compares the H5 and TensorFlow Lite models in terms of file size, accuracy, inference latency, and throughput.                   |
-| `convert_npz_to_csv.py`                        | Converts the processed NPZ testing dataset into CSV format so that it can be read by the HPS without requiring Python libraries. |
+| `convert_.npz.py`                        | Converts the processed NPZ testing dataset into CSV format so that it can be read by the HPS without requiring Python libraries. |
 | `de10_test_data.csv`                           | CSV testing dataset used for evaluating the TensorFlow Lite model on the DE10-Nano HPS.                                          |
 
 ---
@@ -55,8 +55,8 @@ This project develops an FPGA-enabled real-time water surge monitoring and forec
 3. Train and tune the LSTM model using `data_tuning_latest.py`.
 4. Evaluate the trained H5 model using `test_acc_h5.py`.
 5. Optimize the H5 model into TensorFlow Lite format using `optimization_gofloat16_builtin.py`.
-6. Compare H5 and TensorFlow Lite performance using `test_size_accuracy_tflite.py`.
-7. Convert the processed testing dataset into CSV format using `convert_npz_to_csv.py`.
+6.Evaluate TensorFlow Lite using `test_size_accuracy_tflite.py`.
+7. Convert the processed testing dataset into CSV format using `convert_.npz.py`.
 8. Implement FPGA sensor acquisition using Verilog sensor drivers.
 9. Read FPGA sensor data on the HPS through Avalon-MM registers.
 10. Run real-time TensorFlow Lite LSTM prediction on the HPS.
