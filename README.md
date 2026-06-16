@@ -37,16 +37,15 @@ This project develops an FPGA-enabled real-time water surge monitoring and forec
 
 ---
 
-## HPS Code
+## HPS Code and Web Interface
 
-| File                        | Description                                                                                                                                                                                  |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `libtensorflow-lite.a`      | TensorFlow Lite static library version 2.4.1 used to run the optimized LSTM model on the DE10-Nano HPS.                                                                                      |
-| `avalon_mm_hps.cpp`         | Reads real-time sensor values from FPGA Avalon-MM registers, including sensor readings, FPGA acquisition latency, and ADC voltage.                                                           |
-| `dataset_test_accuracy.cpp` | Evaluates the TensorFlow Lite model on the HPS using the test dataset and calculates accuracy, latency, and throughput.                                                                      |
-| `run_lstm_prediction.cpp`   | Main real-time application that reads sensor data from FPGA registers, performs LSTM prediction, compares values with warning thresholds, controls alerts, and uploads data to the database. |
-
----
+| File | Description |
+|---|---|
+| `libtensorflow-lite.a` | TensorFlow Lite static library version 2.4.1 used to run the optimized LSTM model on the DE10-Nano HPS. |
+| `avalon_mm_hps.cpp` | Reads real-time sensor values from FPGA Avalon-MM registers, including sensor readings, FPGA acquisition latency, and ADC voltage. |
+| `dataset_test_accuracy.cpp` | Evaluates the TensorFlow Lite model on the HPS using the test dataset and calculates accuracy, latency, and throughput. |
+| `run_lstm_prediction.cpp` | Main real-time application that reads sensor data from FPGA registers, performs LSTM prediction, compares values with warning thresholds, controls alerts, and uploads data to the database. |
+| `index.html` | Web interface file used to read data from the database and display real-time sensor readings, prediction results, warning status, and historical records on the monitoring website. |
 
 ## Overall System Flow
 
@@ -55,10 +54,15 @@ This project develops an FPGA-enabled real-time water surge monitoring and forec
 3. Train and tune the LSTM model using `data_tuning_latest.py`.
 4. Evaluate the trained H5 model using `test_acc_h5.py`.
 5. Optimize the H5 model into TensorFlow Lite format using `optimization_gofloat16_builtin.py`.
-6.Evaluate TensorFlow Lite using `test_size_accuracy_tflite.py`.
-7. Convert the processed testing dataset into CSV format using `convert_.npz.py`.
+6. Compare H5 and TensorFlow Lite performance using `test_size_accuracy_tflite.py`.
+7. Convert the processed testing dataset into CSV format using `convert_npz_to_csv.py`.
 8. Implement FPGA sensor acquisition using Verilog sensor drivers.
-9. Read FPGA sensor data on the HPS through Avalon-MM registers.
-10. Run real-time TensorFlow Lite LSTM prediction on the HPS.
-11. Compare raw and predicted values with warning thresholds.
-12. Upload data to the database and trigger warning alerts when necessary.
+9. Store the sensor readings in Avalon-MM registers.
+10. Read FPGA sensor data on the HPS using `avalon_mm_hps.cpp`.
+11. Run real-time TensorFlow Lite LSTM prediction on the HPS using `run_lstm_prediction.cpp`.
+12. Compare the raw sensor readings and predicted values with warning thresholds.
+13. Upload the real-time sensor data, prediction results, and warning status to the database.
+14. Use `index.html` as the web interface to read data from the database.
+15. Display real-time sensor readings, prediction results, warning status, and historical records on the monitoring website.
+16. Trigger warning alerts when the raw or predicted values indicate possible water surge conditions.
+
