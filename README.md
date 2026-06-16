@@ -27,3 +27,13 @@ convert_.npz.py                   -> convert the .npz file (need python library 
 de10_test_data.csv                 ->data set that can be used in HPS
 
 # FPGA development
+DE10_NANO_SoC_GHRD.V               -> full verilog included the custom module of sensor and other IP for HPS
+
+top_sensors.v                      ->combine all sensor and store the sensor reading in the register
+
+adc_tur_dri.v                      -> all sensor driver
+temp_dri.v
+flow_rate_dri.v
+ultrasonic_dri.v 
+
+# HPS code
